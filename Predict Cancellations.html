@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predict Cancellations</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="predict-cancellations">Predict Cancellations</h1>
+<p>Use the <code>LogisticRegression</code>libary with PySpark to predict subscription cancellations based on user features.</p>
+<p>Return the prediction dataframe produced by the <code>LogisticRegression</code> model. This dataframe will contain the following columns: <code>rawPrediction</code>, which has the log-odds for each example, <code>probability</code>, which has the probabilities for each example, and <code>prediction</code>, which contains either a <code>0</code> or <code>1</code>, depending on the probability and threshold hyperparameter.</p>
+<p>The prediction dataframe should be trained and predicted on the following dataframe:</p>
+<pre><code>+--------+-----------------------+----------------------+---------------------+---------------------+
+| user_id|month_interaction_count|week_interaction_count|day_interaction_count|cancelled_within_week|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|66860ae6|                     41|                     9|                    0|                    1|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|249803f8|                     25|                     9|                    2|                    0|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|32ed74cc|                     21|                     2|                    1|                    1|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|7ed76e6a|                     22|                     5|                    2|                    0|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|46c81f43|                     32|                     8|                    2|                    0|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|cf0f185e|                     26|                     4|                    0|                    1|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|568275b3|                     29|                     5|                    1|                    1|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|86a060ec|                     33|                     7|                    1|                    1|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|c0c07290|                     35|                    10|                    0|                    0|
++--------+-----------------------+----------------------+---------------------+---------------------+
+|709dc1da|                     36|                    11|                    1|                    0|
++--------+-----------------------+----------------------+---------------------+---------------------+
+</code></pre>
+<p>The dataframe above, accessible as <code>user_interaction_df</code> in the code, contains features for each <code>user_id</code>, including <code>month_interaction_count</code>, <code>week_interaction_count</code>, and <code>day_interaction_count</code>.</p>
+<p>For each <code>user_id</code>, the binary label <code>cancelled_within_week</code> is <code>1</code>if the user cancelled their subscription within a week of the last recorded <code>day_interaction_count</code>and <code>0</code> otherwise.</p>
+<p>The model hyperparameters include 10 iterations, a decision threshold of 0.6, L1 regularization, and a regularization parameter of 0.1.</p>
+<p>Feel free to browse the PySpark <code>LogisticRegression</code> <a href="https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.classification.LogisticRegression.html"><strong>documentation</strong></a>.</p>
+<h3 id="sample-output-dataframe">Sample Output Dataframe</h3>
+<pre><code>+--------+--------------+------------+----------+
+|user_id |rawPrediction |probability |prediction|
++--------+--------------+------------+----------+ 
+|010b4076|         [x,x]|       [x,x]|      0.0 |
+|31c73683|         [x,x]|       [x,x]|      0.0 |
+|8173164f|         [x,x]|       [x,x]|      0.0 |
+|f77ad2d3|         [x,x]|       [x,x]|      0.0 |
+|25050522|         [x,x]|       [x,x]|      0.0 |
+|bfb27c75|         [x,x]|       [x,x]|      0.0 |
+|09663ea6|         [x,x]|       [x,x]|      1.0 |
+|ca7aacf2|         [x,x]|       [x,x]|      0.0 |
+|63f84e80|         [x,x]|       [x,x]|      0.0 |
+|cbb81ed7|         [x,x]|       [x,x]|      0.0 |
++--------+--------------+------------+----------+ 
+</code></pre>
+<h3 id="hint">Hint</h3>
+<p>First, we need to create a <code>"features"</code> column that groups the user features together. we can do this by using a <code>VectorAssembler</code>.</p>
+</div>
+</body>
+
+</html>
